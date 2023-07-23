@@ -44,18 +44,47 @@ squick-mid是Squick项目的中台项目，中台在网络游戏中充当很重�
 
 
 
-### Grafana搭建
+### 监控搭建
 
-```bash
-#!/bin/bash
-docker run -d \
-    --restart=always \
-    --name grafana_1 \
-    -p 3600:3000 \
-    -v $(pwd)/data:/var/lib/grafana/ \
-    -v $(pwd)/conf:/etc/grafana/ \
-    grafana/grafana
+InfluxDB
+
+
+
+
+
+influxDB
+
 ```
+docker run -d --name influxdb -p 8086:8086 influxdb
+```
+
+访问: http://127.0.0.1:8086/ 设置密码和创建数据库
+
+
+
+grafana
+
+```
+docker run -d --name grafana -p 3000:3000 grafana/grafana
+```
+
+访问 http://127.0.0.1:3000 输入admin和admin，然后设置密码
+
+
+
+statsd
+
+```
+docker run -d --name statsd -p 3000:3000 statsd/statsd
+```
+
+客户端: https://github.com/alexcesaro/statsd
+
+
+
+
+
+
 
 
 
@@ -63,3 +92,16 @@ docker run -d \
 
 ### 前端渲染
 
+
+
+
+
+## 参考
+
+[Statsd+Graphite+Grafana：搭建web监控系统](https://www.cnblogs.com/-wenli/p/13661292.html)
+
+[使用 StatsD + Grafana + InfluxDB 搭建 Node.js 监控系统](https://juejin.cn/post/6844903457422327816)
+
+https://blog.csdn.net/hogwarts_ziqi/article/details/128472305
+
+https://zhuanlan.zhihu.com/p/80062750
